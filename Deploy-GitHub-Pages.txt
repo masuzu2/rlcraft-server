@@ -1,0 +1,168 @@
+═══════════════════════════════════════════════════
+   Deploy เว็บบน GitHub Pages (ฟรี ถาวร)
+═══════════════════════════════════════════════════
+
+  ก่อนเริ่ม ต้องมี:
+    ✓ GitHub account (ฟรี ใช้ email)
+    ✓ ไฟล์ index.html ที่แก้ CONFIG เสร็จแล้ว
+
+═══════════════════════════════════════════════════
+   STEP 1: สมัคร GitHub (ข้ามถ้ามีแล้ว)
+═══════════════════════════════════════════════════
+
+  1. เข้า https://github.com
+  2. กด "Sign up" มุมขวาบน
+  3. ใส่ email + password + username
+     (username นี้จะอยู่ใน URL ของเว็บ)
+  4. ยืนยัน email
+
+═══════════════════════════════════════════════════
+   STEP 2: สร้าง Repository ใหม่
+═══════════════════════════════════════════════════
+
+  1. หลัง login กดปุ่ม "+" มุมขวาบน → "New repository"
+     หรือเข้าตรง: https://github.com/new
+
+  2. ตั้งค่า:
+     ┌─────────────────────────────────────────────┐
+     │ Repository name: rlcraft-server             │
+     │ Description: My RLCraft server status page  │
+     │ Public ✓ (ต้องเป็น Public ถึงใช้ Pages ฟรี) │
+     │ Add a README file: ☐ (ไม่ต้อง เรามีแล้ว)   │
+     │ Add .gitignore: None                        │
+     │ License: None                               │
+     └─────────────────────────────────────────────┘
+
+  3. กด "Create repository"
+
+═══════════════════════════════════════════════════
+   STEP 3: Upload ไฟล์
+═══════════════════════════════════════════════════
+
+  1. ในหน้า repo ที่เพิ่งสร้าง จะเห็น
+     "Quick setup" — ละไว้ก่อน
+
+  2. ดูข้อความ "uploading an existing file"
+     คลิกลิงก์นั้น
+     หรือเข้า: https://github.com/USERNAME/rlcraft-server/upload/main
+
+  3. ลาก/วางไฟล์เหล่านี้:
+     ✓ index.html
+     ✓ README.md
+     (ไม่ต้องเอา Deploy-GitHub-Pages.txt อันนี้ขึ้น)
+
+  4. ลงล่างสุด ที่ช่อง "Commit changes":
+     - Title: Initial site
+     - กดปุ่มเขียวว่า "Commit changes"
+
+═══════════════════════════════════════════════════
+   STEP 4: เปิด GitHub Pages
+═══════════════════════════════════════════════════
+
+  1. ในหน้า repo กด "Settings" (แท็บบนสุด ขวาสุด)
+
+  2. เมนูซ้าย → "Pages"
+     หรือเข้าตรง: https://github.com/USERNAME/rlcraft-server/settings/pages
+
+  3. ในส่วน "Build and deployment":
+     ┌─────────────────────────────────────────┐
+     │ Source: Deploy from a branch            │
+     │                                         │
+     │ Branch: main  /  / (root)               │
+     │                            [Save]       │
+     └─────────────────────────────────────────┘
+     เลือก main → / (root) → กด Save
+
+  4. รอ 1-2 นาที จะมีกล่องเขียวขึ้นมาบอกว่า:
+     ✓ Your site is live at:
+       https://USERNAME.github.io/rlcraft-server/
+
+  5. คลิก URL นั้น = เว็บคุณ!
+
+═══════════════════════════════════════════════════
+   STEP 5: ส่ง URL ให้เพื่อน
+═══════════════════════════════════════════════════
+
+  URL ของเว็บ:
+    https://YOUR-USERNAME.github.io/rlcraft-server/
+
+  ส่งให้เพื่อนผ่าน Discord, LINE, etc.
+
+═══════════════════════════════════════════════════
+   วิธีอัพเดทเว็บ (เมื่อ Playit URL เปลี่ยน, แก้กฎ ฯลฯ)
+═══════════════════════════════════════════════════
+
+  วิธีง่าย (web upload):
+
+  1. แก้ไฟล์ index.html บนเครื่อง
+  2. เข้า repo บน GitHub
+  3. คลิกที่ index.html
+  4. กดปุ่ม pencil ✏️ (Edit) มุมขวาบน
+     หรือลบไฟล์เก่า แล้ว upload ใหม่:
+     - กด "Add file" → "Upload files"
+     - ลาก index.html ใหม่ ทับเลย
+  5. Commit changes → รอ 1-2 นาที → เว็บอัพเดท
+
+  วิธีใช้ Git (ถ้าเป็น):
+
+  ครั้งแรก:
+    git clone https://github.com/USERNAME/rlcraft-server.git
+    cd rlcraft-server
+
+  อัพเดท:
+    # แก้ไฟล์ index.html ใน editor
+    git add index.html
+    git commit -m "Update server URL"
+    git push
+
+═══════════════════════════════════════════════════
+   ตั้งชื่อโดเมนสวยๆ (Optional)
+═══════════════════════════════════════════════════
+
+  ถ้ามี domain ของตัวเอง (เช่น rlcraft.mydomain.com):
+
+  1. ใน repo Settings → Pages
+  2. ส่วน "Custom domain" ใส่: rlcraft.mydomain.com
+  3. Save
+  4. ที่ DNS ของ domain เพิ่ม CNAME:
+     rlcraft → USERNAME.github.io
+
+  หรือ ใช้ subdomain ฟรีจาก:
+  • js.org (สำหรับ JS projects)
+  • netlify (เปลี่ยนไป deploy บน Netlify ได้ subdomain ฟรี)
+
+═══════════════════════════════════════════════════
+   ⚠️ ข้อควรรู้
+═══════════════════════════════════════════════════
+
+  1. Repo ต้องเป็น Public (Free plan)
+     ⚠️ index.html มี Server URL อยู่ → ใครก็เห็น
+     แต่ Server URL ก็ตั้งใจให้คนเข้าได้อยู่แล้ว
+
+  2. GitHub Pages เร็วและถาวร ไม่หมดอายุ ฟรีตลอด
+
+  3. ทุกครั้งที่ commit → deploy ใหม่อัตโนมัติ
+     (1-2 นาที หลัง push)
+
+  4. Limit: 1 GB storage, 100 GB bandwidth/เดือน
+     สำหรับ static site แบบนี้ไม่มีทางถึง
+
+═══════════════════════════════════════════════════
+   ติดปัญหา?
+═══════════════════════════════════════════════════
+
+  เว็บเปิดแล้วเป็น 404:
+    → รอ 5 นาที (deploy อาจยังไม่เสร็จ)
+    → เช็ค Settings → Pages ว่า branch = main ถูก
+    → เช็คชื่อไฟล์ต้องเป็น index.html (ตัวเล็ก)
+
+  Map ไม่โหลด (iframe ว่าง):
+    → DYNMAP_URL ใน index.html ผิด
+    → Dynmap server ปิดอยู่
+    → Playit tunnel หมดอายุ - ตั้งใหม่
+
+  สถานะแสดง offline ตลอด:
+    → SERVER_ADDRESS ใน index.html ผิด
+    → MC server ปิด หรือ Playit tunnel หมด
+
+═══════════════════════════════════════════════════

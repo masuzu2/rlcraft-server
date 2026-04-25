@@ -1,0 +1,145 @@
+═══════════════════════════════════════════════════
+   RLCraft Public Website - Deploy Guide
+═══════════════════════════════════════════════════
+
+  เว็บนี้แสดงให้คนทั่วไป/เพื่อน:
+    ✓ สถานะเซิฟ (online/offline)
+    ✓ MOTD + จำนวนคน + รายชื่อพร้อม skin
+    ✓ Live Map (Dynmap) - เห็นตำแหน่งเพื่อนแบบ real-time
+    ✓ วิธีเข้าเซิฟ + กฎ
+    ✓ IP ที่กด Copy ได้
+
+═══════════════════════════════════════════════════
+   ขั้นตอนเตรียม
+═══════════════════════════════════════════════════
+
+  ฝั่งเซิฟ (โน้ตบุ๊ก):
+
+  [1] ติดตั้ง Dynmap ในเซิฟ
+      - ไปโฟลเดอร์ RLCraft-Server-Setup
+      - ดับเบิลคลิก InstallDynmap.bat
+      - Restart server
+      - รอ Dynmap render แผนที่ (ครั้งแรกใช้เวลานาน)
+
+  [2] เปิด Dynmap ดูในบ้านก่อน เช็คว่าทำงาน
+      - http://localhost:8123 บนโน้ตบุ๊ก
+
+  [3] ตั้ง Playit tunnel เพิ่ม สำหรับ Dynmap
+      - เปิดโปรแกรม Playit
+      - Add Tunnel ใหม่
+      - Type: TCP
+      - Local Address: 127.0.0.1
+      - Local Port: 8123
+      - Save → จะได้ URL เช่น tunnel-xxxx.gl.joinmc.link:51235
+
+  [4] เปิด tunnel ของ MC server (ที่ตั้งไว้แล้ว)
+      - URL เช่น tunnel-yyyy.gl.joinmc.link:25565
+
+═══════════════════════════════════════════════════
+   ขั้นตอนแก้ index.html
+═══════════════════════════════════════════════════
+
+  เปิด index.html ด้วย Notepad
+  หาส่วน CONFIG ที่อยู่ใน <script> (ตอนล่างของไฟล์)
+
+  แก้ 2 ค่า:
+
+    const SERVER_ADDRESS = "tunnel-yyyy.gl.joinmc.link:25565";
+    const DYNMAP_URL = "http://tunnel-xxxx.gl.joinmc.link:51235";
+
+  ⚠️ DYNMAP_URL ต้องมี http:// นำหน้า
+  ⚠️ SERVER_ADDRESS ไม่ต้องมี http://
+
+  Save ไฟล์
+
+═══════════════════════════════════════════════════
+   วิธี Deploy เว็บ (เลือก 1 อย่าง)
+═══════════════════════════════════════════════════
+
+  ────────────────────────────────────
+   ทางเลือก A: Netlify Drop ⭐ ง่ายสุด
+  ────────────────────────────────────
+
+  1. เข้า https://app.netlify.com/drop
+  2. ลาก index.html (หรือทั้งโฟลเดอร์) ไปวาง
+  3. Netlify จะ deploy ให้ทันที ได้ URL เช่น
+     https://random-name-12345.netlify.app
+  4. กด "Claim site" สมัคร account (ฟรี) เพื่อ:
+     - ตั้ง URL เอง: https://rlcraft-myserver.netlify.app
+     - แก้ไขเว็บได้ตลอด
+
+  ────────────────────────────────────
+   ทางเลือก B: Vercel
+  ────────────────────────────────────
+
+  1. สมัคร https://vercel.com (ฟรี, login ด้วย Google ได้)
+  2. ดาวน์โหลด Vercel CLI หรือใช้ web import
+  3. หรือใช้ GitHub:
+     - สร้าง repo ใหม่บน GitHub upload index.html
+     - ไป Vercel → New Project → Import จาก GitHub
+     - Deploy
+  4. ได้ URL: https://your-project.vercel.app
+
+  ────────────────────────────────────
+   ทางเลือก C: GitHub Pages (ฟรี)
+  ────────────────────────────────────
+
+  1. สมัคร https://github.com (ฟรี)
+  2. สร้าง repo ใหม่ ตั้งชื่อ rlcraft-server
+  3. Upload index.html (กด Add file → Upload)
+  4. Settings → Pages → Source: main branch → Save
+  5. ได้ URL: https://YOUR_USERNAME.github.io/rlcraft-server
+
+  ────────────────────────────────────
+   ทางเลือก D: Cloudflare Pages
+  ────────────────────────────────────
+
+  1. สมัคร https://pages.cloudflare.com (ฟรี)
+  2. Create a project → Direct upload
+  3. ลาก index.html
+  4. Deploy → ได้ URL: https://your-project.pages.dev
+
+═══════════════════════════════════════════════════
+   ส่ง URL ให้เพื่อน
+═══════════════════════════════════════════════════
+
+  เมื่อ deploy เสร็จ จะได้ URL หน้าเว็บ
+  ส่งให้เพื่อนใช้ → เพื่อนจะเห็น:
+    - สถานะเซิฟ
+    - แผนที่ Live (เห็นตัวเองและเพื่อนใน map)
+    - กดปุ่ม Copy IP → paste ใน MC
+
+═══════════════════════════════════════════════════
+   ⚠️ ข้อควรรู้
+═══════════════════════════════════════════════════
+
+  1. Live Map (Dynmap) ขึ้นอยู่กับเซิฟเปิดอยู่
+     ถ้าเซิฟปิด → Map จะโหลดไม่ได้ (iframe ว่าง)
+
+  2. Dynmap ต้อง render แผนที่ก่อนถึงจะเห็น
+     คำสั่งใน server console:
+       dynmap fullrender world
+     หรือ render เฉพาะรอบๆ spawn:
+       dynmap radiusrender world 0 0 5000
+
+  3. Playit จะให้ URL ใหม่ทุกครั้งที่สร้าง tunnel
+     ถ้า URL เปลี่ยน → ต้องแก้ index.html + redeploy
+
+  4. เพื่อความเสถียร tunnel ใช้ Playit Plus (เสียเงิน)
+     หรือ static URL จาก Cloudflare Tunnel (ฟรีแต่ตั้งยากกว่า)
+
+  5. Dynmap consume CPU เพิ่ม ~5-10%
+     ถ้าโน้ตบุ๊กแรงไม่พอ ปรับ tileupdatedelay เพิ่ม
+     ใน config\dynmap\configuration.txt
+
+═══════════════════════════════════════════════════
+   อัพเดทเว็บ
+═══════════════════════════════════════════════════
+
+  หลัง deploy แล้ว ถ้าจะแก้:
+    Netlify   → Drag & drop ไฟล์ใหม่ทับ
+    Vercel    → push GitHub ใหม่
+    GitHub    → upload ทับ
+    Cloudflare→ Direct upload ใหม่
+
+═══════════════════════════════════════════════════
