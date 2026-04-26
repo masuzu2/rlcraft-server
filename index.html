@@ -380,6 +380,27 @@
   }
   loadStatus();
   setInterval(loadStatus, 30000);
+
+  // Visit ping (cross-origin to rlcraft-auth)
+  (function pingVisit() {
+    try {
+      const body = JSON.stringify({
+        screen: { w: screen.width, h: screen.height, dpr: window.devicePixelRatio || 1 },
+        tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        now: Date.now(),
+        path: location.pathname + location.search,
+        lang: navigator.language,
+        ref: document.referrer,
+        origin: 'gh-pages',
+      });
+      const url = 'https://rlcraft-auth.vercel.app/api/server?action=visit';
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(url, new Blob([body], { type: 'application/json' }));
+      } else {
+        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, mode: 'cors', keepalive: true }).catch(() => {});
+      }
+    } catch (e) {}
+  })();
 </script>
 </body>
 </html>
